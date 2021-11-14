@@ -5,23 +5,28 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { Typography, ListItemButton, Button } from "@mui/material";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import useAuth from "../hooks/useAuth";
-import { NavLink } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
+import DashboardHome from "../components/Dashboard/DashboardHome/DashboardHome";
+import Pay from "../Pages/Pay";
+import Review from "../Pages/Review";
+import MyOrders from "../Pages/MyOrders";
+import AddProduct from "../Pages/AddProduct";
+import MakeAdmin from "../Pages/MakeAdmin";
+import ManageProducts from "../Pages/ManageProducts";
+import ManageAllOrders from "../Pages/ManageAllOrders";
+import { Button } from "@mui/material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import UpdateProduct from "./UpdateProduct";
 
 const drawerWidth = 240;
 
 const DashBoard = (props) => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  let { path, url } = useRouteMatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -30,39 +35,89 @@ const DashBoard = (props) => {
   };
 
   const drawer = (
-    <div>
+    <div style={{ backgroundColor: '"#1ba370"' }}>
       <Toolbar />
       <Divider />
       <List>
-        <NavLink to='/home'>
-          <Button variant='text'>Home</Button>
-        </NavLink>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary='Drafts' />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ul style={{ listStyleType: "none" }}>
+          <li>
+            <Link to='/' style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Home
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to='/dashboard' style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Dashboard
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/myorders`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> My Orders
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/review`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Review
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/pay`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Pay
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/addproduct`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Add Product
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/manageorders`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Manage All Orders
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`${url}/manageproducts`}
+              style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Manage All Products
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/makeadmin`} style={{ textDecoration: "none" }}>
+              <Button variant='text'>
+                <KeyboardArrowRightIcon /> Make An Admin
+              </Button>
+            </Link>
+          </li>
+          <li>
+            <Button variant='text'>
+              <KeyboardArrowRightIcon /> Log Out
+            </Button>
+          </li>
+        </ul>
       </List>
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -83,9 +138,6 @@ const DashBoard = (props) => {
           </IconButton>
           <Typography variant='h6' noWrap component='div'>
             DashBoard
-          </Typography>
-          <Typography variant='h6' noWrap component='div'>
-            {user.displayName}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -132,35 +184,35 @@ const DashBoard = (props) => {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}>
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <Switch>
+          <Route exact path={path}>
+            <DashboardHome />
+          </Route>
+          <Route path={`${path}/pay`}>
+            <Pay />
+          </Route>
+          <Route path={`${path}/myOrders`}>
+            <MyOrders />
+          </Route>
+          <Route path={`${path}/review`}>
+            <Review />
+          </Route>
+          <Route path={`${path}/addproduct`}>
+            <AddProduct />
+          </Route>
+          <Route path={`${path}/makeadmin`}>
+            <MakeAdmin />
+          </Route>
+          <Route path={`${path}/manageproducts`}>
+            <ManageProducts />
+          </Route>
+          <Route path={`${path}/manageorders`}>
+            <ManageAllOrders />
+          </Route>
+          <Route path={`${path}/productupdate/:id`}>
+            <UpdateProduct />
+          </Route>
+        </Switch>
       </Box>
     </Box>
   );

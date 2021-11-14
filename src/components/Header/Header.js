@@ -53,7 +53,7 @@ const Header = () => {
                 <Box>
                   {user?.email ? (
                     <Box>
-                      <Typography variant='text' sx={{ color: "white" }}>
+                      <Typography variant='text' sx={{ color: "black" }}>
                         {user.displayName}
                       </Typography>
                       <NavLink
