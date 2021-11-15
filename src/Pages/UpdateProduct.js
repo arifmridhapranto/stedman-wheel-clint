@@ -21,7 +21,6 @@ const UpdateProduct = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     fetch(`https://gentle-dusk-82174.herokuapp.com/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

@@ -25,7 +25,6 @@ const ManageProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.deletedCount > 0) {
           alert("Are you sure to delete Product?");
         }

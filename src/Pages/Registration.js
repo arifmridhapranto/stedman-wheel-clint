@@ -27,7 +27,7 @@ const Registration = () => {
     const value = e.target.value;
     let newData = { ...registerData };
     newData[field] = value;
-    console.log(newData);
+
     setRegisterData(newData);
   };
 

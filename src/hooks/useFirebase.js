@@ -69,7 +69,7 @@ const useFirebase = () => {
       .then((result) => {
         const destination = location?.state?.from || "/";
         history.replace(destination);
-        console.log(result.user);
+
         setError("");
       })
       .catch((error) => {
@@ -112,8 +112,8 @@ const useFirebase = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
+          alert("user Has been Added");
         }
       });
   };

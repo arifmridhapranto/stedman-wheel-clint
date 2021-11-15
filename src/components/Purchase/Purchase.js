@@ -25,13 +25,12 @@ const Purchase = () => {
   }, [id]);
   const onSubmit = (data) => {
     const image = purchaseProduct?.img;
-    console.log(image);
+
     const newData = {
       ...data,
       status: "pending",
       img: image,
     };
-    console.log(newData);
     fetch("https://gentle-dusk-82174.herokuapp.com/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

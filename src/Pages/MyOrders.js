@@ -18,19 +18,16 @@ const MyOrders = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setMyOrders(data);
       });
   }, [user.email]);
   const handleDeleteProduct = (id) => {
-    console.log(id);
     const url = `https://gentle-dusk-82174.herokuapp.com/orders/${id}`;
     fetch(url, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.deletedCount > 0) {
           alert("Are you sure to delete Product?");
         }

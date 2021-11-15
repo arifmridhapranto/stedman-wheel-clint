@@ -11,7 +11,6 @@ const ContactForm = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
     fetch("https://gentle-dusk-82174.herokuapp.com/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -19,7 +18,6 @@ const ContactForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           alert("your Form is Submited");
           reset();
