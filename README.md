@@ -14,6 +14,6 @@
 
 7. ### Customer satisfaction is out main priority.
 
-<img src="https://i.ibb.co/dcNFwhy/screencapture-stedman-wheel-web-app-2021-11-15-21-57-38.png">
+<img src="https://i.ibb.co/dcNFwhy/screencapture-stedman-wheel-web-app-2021-11-15-21-57-38.png"/>
 
 <a href="https://facebook.com/pranto.mridha.7" >Pranto Mridha</a>
