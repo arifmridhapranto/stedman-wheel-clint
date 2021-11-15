@@ -10,7 +10,7 @@ import { Grid, Rating } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const SingleProduct = (props) => {
-  const { _id, img, name, price, rating } = props.product;
+  const { _id, img, name, price, rating, description } = props.product;
 
   return (
     <Grid item xs={12} sm={12} md={6} lg={4}>
@@ -31,8 +31,7 @@ const SingleProduct = (props) => {
             </Typography>
           </Box>
           <Typography variant='body2' color='text.secondary'>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {description.slice(0, 100)}
           </Typography>
           <Typography component='h5'>
             Rating:
