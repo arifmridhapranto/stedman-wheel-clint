@@ -15,15 +15,31 @@ initializeApplication();
 
 const useFirebase = () => {
   const [user, setUser] = useState({});
+  const [admin, setAdmin] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const auth = getAuth();
 
-  const googleSignIn = () => {
+  const googleSignIn = (history, location) => {
     setIsLoading(true);
     const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleProvider);
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+
+        setUser(user);
+        saveUser(user.email, user.displayName, "PUT");
+        const url = location?.state?.from || "/";
+        history.push(url);
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setIsLoading(true);
+      });
   };
   const emailSignUp = (email, password, name, location, history) => {
     setIsLoading(true);
@@ -31,6 +47,8 @@ const useFirebase = () => {
       .then((result) => {
         const newUser = { email, displayName: name };
         setUser(newUser);
+        saveUser(email, name, "POST");
+
         updateProfile(auth.currentUser, {
           displayName: name,
         })
@@ -85,22 +103,36 @@ const useFirebase = () => {
         setIsLoading(false);
       });
   };
-
+  const saveUser = (email, displayName, method) => {
+    const user = { email, displayName };
+    fetch("https://gentle-dusk-82174.herokuapp.com/users", {
+      method: method,
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+        }
+      });
+  };
+  useEffect(() => {
+    fetch(`https://gentle-dusk-82174.herokuapp.com/users/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setAdmin(data.admin));
+  }, [user?.email]);
   return {
     user,
     setUser,
+    admin,
     googleSignIn,
     logOut,
     isLoading,
     emailSignIn,
     emailSignUp,
-    // emailChange,
-    // passwordChange,
-    // handleRegistrationSubmit,
-    // handleLoginSubmit,
     error,
     setError,
-    // handleNameChange,
   };
 };
 

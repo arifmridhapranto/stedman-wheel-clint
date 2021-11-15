@@ -12,14 +12,14 @@ import { Link } from "react-router-dom";
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:9000/products")
+    fetch("https://gentle-dusk-82174.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
       });
   }, [products]);
   const handleDeleteProduct = (id) => {
-    const url = `http://localhost:9000/products/${id}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/products/${id}`;
     fetch(url, {
       method: "DELETE",
     })

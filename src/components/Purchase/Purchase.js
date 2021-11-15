@@ -19,7 +19,7 @@ const Purchase = () => {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:9000/products/${id}`)
+    fetch(`https://gentle-dusk-82174.herokuapp.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => setPurchaseProduct(data));
   }, [id]);
@@ -32,7 +32,7 @@ const Purchase = () => {
       img: image,
     };
     console.log(newData);
-    fetch("http://localhost:9000/orders", {
+    fetch("https://gentle-dusk-82174.herokuapp.com/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newData),

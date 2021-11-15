@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import { Switch, Route, useRouteMatch, Link } from "react-router-dom";
 import DashboardHome from "../components/Dashboard/DashboardHome/DashboardHome";
 import Pay from "../Pages/Pay";
-import Review from "../Pages/Review";
 import MyOrders from "../Pages/MyOrders";
 import AddProduct from "../Pages/AddProduct";
 import MakeAdmin from "../Pages/MakeAdmin";
@@ -21,11 +20,14 @@ import ManageAllOrders from "../Pages/ManageAllOrders";
 import { Button } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import UpdateProduct from "./UpdateProduct";
+import AddReview from "./AddReview";
+import useAuth from "../hooks/useAuth";
+import AdminRoute from "../AdminRoute/AdminRoute";
 
 const drawerWidth = 240;
 
 const DashBoard = (props) => {
-  // const { user } = useAuth();
+  const { admin, logOut } = useAuth();
   let { path, url } = useRouteMatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -54,59 +56,75 @@ const DashBoard = (props) => {
               </Button>
             </Link>
           </li>
+          {!admin && (
+            <Box>
+              <li>
+                <Link to={`${url}/myorders`} style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> My Orders
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`${url}/addreview`}
+                  style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> ADD Review
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link to={`${url}/pay`} style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> Pay
+                  </Button>
+                </Link>
+              </li>
+            </Box>
+          )}
+          {admin && (
+            <Box>
+              <li>
+                <Link
+                  to={`${url}/addproduct`}
+                  style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> Add Product
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`${url}/manageorders`}
+                  style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> Manage All Orders
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`${url}/manageproducts`}
+                  style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> Manage All Products
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`${url}/makeadmin`}
+                  style={{ textDecoration: "none" }}>
+                  <Button variant='text'>
+                    <KeyboardArrowRightIcon /> Make An Admin
+                  </Button>
+                </Link>
+              </li>
+            </Box>
+          )}
           <li>
-            <Link to={`${url}/myorders`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> My Orders
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`${url}/review`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Review
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`${url}/pay`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Pay
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`${url}/addproduct`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Add Product
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`${url}/manageorders`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Manage All Orders
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={`${url}/manageproducts`}
-              style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Manage All Products
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Link to={`${url}/makeadmin`} style={{ textDecoration: "none" }}>
-              <Button variant='text'>
-                <KeyboardArrowRightIcon /> Make An Admin
-              </Button>
-            </Link>
-          </li>
-          <li>
-            <Button variant='text'>
+            <Button variant='text' onClick={logOut}>
               <KeyboardArrowRightIcon /> Log Out
             </Button>
           </li>
@@ -194,24 +212,24 @@ const DashBoard = (props) => {
           <Route path={`${path}/myOrders`}>
             <MyOrders />
           </Route>
-          <Route path={`${path}/review`}>
-            <Review />
+          <Route path={`${path}/addreview`}>
+            <AddReview />
           </Route>
-          <Route path={`${path}/addproduct`}>
+          <AdminRoute path={`${path}/addproduct`}>
             <AddProduct />
-          </Route>
-          <Route path={`${path}/makeadmin`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/makeadmin`}>
             <MakeAdmin />
-          </Route>
-          <Route path={`${path}/manageproducts`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageproducts`}>
             <ManageProducts />
-          </Route>
-          <Route path={`${path}/manageorders`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageorders`}>
             <ManageAllOrders />
-          </Route>
-          <Route path={`${path}/productupdate/:id`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/productupdate/:id`}>
             <UpdateProduct />
-          </Route>
+          </AdminRoute>
         </Switch>
       </Box>
     </Box>

@@ -7,7 +7,7 @@ const UpdateProduct = () => {
   const [updatedProduct, setUpdatedProduct] = useState({});
   const { id } = useParams();
   useEffect(() => {
-    const url = `http://localhost:9000/products/${id}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/products/${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -22,7 +22,7 @@ const UpdateProduct = () => {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    fetch(`http://localhost:9000/products/${id}`, {
+    fetch(`https://gentle-dusk-82174.herokuapp.com/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

@@ -1,29 +1,32 @@
-import { Button, Container, Typography } from "@mui/material";
 import React from "react";
+import { Button, Container, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
-const AddProduct = () => {
+const AddReview = () => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
-    fetch("https://gentle-dusk-82174.herokuapp.com/products", {
+    fetch("https://gentle-dusk-82174.herokuapp.com/addreview", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.insertedId) {
-          alert("your Product is Added On Database");
+          alert("Your Review is Added");
           reset();
         }
       });
   };
-
   return (
     <div>
       <Typography
@@ -34,38 +37,33 @@ const AddProduct = () => {
           textAlign: "center",
           my: 3,
         }}>
-        Add A Products
+        Add A Review
       </Typography>
-      <Container>
+      <Container style={{ textAlign: "center" }}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          style={{ width: "100%", marginTop: "15px", textAlign: "center" }}>
+          style={{ width: "60%", marginTop: "15px", textAlign: "center" }}>
           {/* register your input into the hook by invoking the "register" function */}
           <input
-            {...register("name", { required: true })}
-            style={{ width: "100%", height: "40px", marginTop: "25px" }}
+            defaultValue={user.displayName}
+            {...register("userName")}
+            readOnly
+            style={{ width: "100%", height: "80px", marginTop: "25px" }}
             placeholder='Name'
           />
           <br />
+          {/* include validation with required or other standard HTML validation rules */}
           <input
-            {...register("img", { required: true })}
-            style={{ width: "100%", height: "40px", marginTop: "25px" }}
-            placeholder='Image Link'
-          />
-          <br />
-          <input
-            {...register("price", { required: true })}
-            style={{ width: "100%", height: "40px", marginTop: "25px" }}
-            placeholder='price'
+            {...register("rating", { required: true })}
+            style={{ width: "100%", height: "80px", marginTop: "25px" }}
+            placeholder='Give a review (1-5)'
             type='number'
           />
           <br />
-
-          {/* include validation with required or other standard HTML validation rules */}
           <input
-            {...register("description", { required: true })}
-            placeholder='Description'
+            {...register("Comments", { required: true })}
             style={{ width: "100%", height: "80px", marginTop: "25px" }}
+            placeholder='Your Comment'
           />
           <br />
           {/* errors will return when field validation fails  */}
@@ -80,4 +78,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddReview;

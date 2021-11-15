@@ -15,29 +15,12 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 const Registration = () => {
   const [registerData, setRegisterData] = useState({});
-  const {
-    user,
-    setUser,
-    googleSignIn,
-    emailSignUp,
-    setError,
-    error,
-    isLoading,
-  } = useAuth();
+  const { user, googleSignIn, emailSignUp, error, isLoading } = useAuth();
   const history = useHistory();
   const location = useLocation();
-  const url = location?.state?.from || "/";
+
   const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        history.push(url);
-        setError("");
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    googleSignIn(history, location);
   };
   const handleOnBlur = (e) => {
     const field = e.target.name;

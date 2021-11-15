@@ -15,14 +15,14 @@ const ManageAllOrders = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("http://localhost:9000/orders")
+    fetch("https://gentle-dusk-82174.herokuapp.com/orders")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, [orders]);
 
   const handleUpdateStatus = (id) => {
     const newData = { status: "Approved" };
-    const url = `http://localhost:9000/orders/${id}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/orders/${id}`;
     fetch(url, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ const ManageAllOrders = () => {
   };
   const handleDeleteProduct = (id) => {
     console.log(id);
-    const url = `http://localhost:9000/orders/${id}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/orders/${id}`;
     fetch(url, {
       method: "DELETE",
     })

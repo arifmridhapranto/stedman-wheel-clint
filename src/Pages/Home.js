@@ -5,6 +5,7 @@ import Footer from "../components/Footer/Footer";
 import Banner from "../components/Header/Banner";
 import Header from "../components/Header/Header";
 import ProductsSection from "../components/ProductsSection/ProductsSection";
+import Review from "./Review";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <ExtraSection2></ExtraSection2>
       <ProductsSection></ProductsSection>
       <ExtraSection1></ExtraSection1>
+      <Review></Review>
       <Footer></Footer>
     </div>
   );

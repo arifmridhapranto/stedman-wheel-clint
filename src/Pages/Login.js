@@ -18,30 +18,13 @@ import useAuth from "../hooks/useAuth";
 const Login = () => {
   const [loginData, setLoginData] = useState({});
 
-  const {
-    user,
-    setUser,
-    googleSignIn,
-    setError,
-    error,
-    emailSignIn,
-    isLoading,
-  } = useAuth();
+  const { user, googleSignIn, error, emailSignIn, isLoading } = useAuth();
 
   const history = useHistory();
   const location = useLocation();
-  const url = location?.state?.from || "/";
 
   const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        history.push(url);
-      })
-      .catch((error) => {
-        setError(error);
-      });
+    googleSignIn(history, location);
   };
   const handleOnBlur = (e) => {
     const field = e.target.name;

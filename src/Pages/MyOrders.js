@@ -14,17 +14,17 @@ const MyOrders = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const url = `http://localhost:9000/orders/${user.email}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/orders/${user.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setMyOrders(data);
       });
-  }, [myOrders]);
+  }, [user.email]);
   const handleDeleteProduct = (id) => {
     console.log(id);
-    const url = `http://localhost:9000/orders/${id}`;
+    const url = `https://gentle-dusk-82174.herokuapp.com/orders/${id}`;
     fetch(url, {
       method: "DELETE",
     })

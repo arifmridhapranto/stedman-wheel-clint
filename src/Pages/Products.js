@@ -1,5 +1,6 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, CircularProgress } from "@mui/material";
 import { Grid } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer/Footer";
 import ExtraHeader from "../components/Header/ExtraHeader";
@@ -9,7 +10,7 @@ import SingleProduct from "../components/SingleProduct/SingleProduct";
 const Products = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:9000/products")
+    fetch("https://gentle-dusk-82174.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -37,11 +38,24 @@ const Products = () => {
           }}>
           Our Products
         </Typography>
-        <Grid container spacing={4}>
-          {products.map((product) => (
-            <SingleProduct product={product} key={product._id}></SingleProduct>
-          ))}
-        </Grid>
+        {products.length ? (
+          <Grid container spacing={4}>
+            {products.map((product) => (
+              <SingleProduct
+                product={product}
+                key={product._id}></SingleProduct>
+            ))}
+          </Grid>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <CircularProgress />
+          </Box>
+        )}
       </Container>
       <Footer></Footer>
     </div>
