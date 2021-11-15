@@ -27,7 +27,7 @@ const SingleProduct = (props) => {
               {name}
             </Typography>
             <Typography gutterBottom variant='h5' component='div'>
-              {price}
+              ${price}
             </Typography>
           </Box>
           <Typography variant='body2' color='text.secondary'>
